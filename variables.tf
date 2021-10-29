@@ -17,16 +17,6 @@ variable "spoke_network_name" {
   description = "Name of the network. preferably use the FQDN of the ocp cluster."
 }
 
-variable "spoke_network" {
-  type = string
-  description = "Specify the network for this spoke network. E.g. for a class c network set the variable to 192.168.0"
-}
-
-variable "spoke_netmask" {
-  type = string
-  description = "Specify the netmask for for this spoke network. E.g. for a class c network set the variable 24"
-}
-
 ########################
 # vmware configuration #
 ########################

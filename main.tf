@@ -3,7 +3,6 @@ resource vsphere_virtual_machine "loadbalancer0" {
   resource_pool_id = "${data.vsphere_compute_cluster.cc.resource_pool_id}"
   datastore_id     = "${data.vsphere_datastore.ds.id}"
   folder           = "GP/${var.spoke_network_name}"
-  depends_on       = [vsphere_host_port_group.pg,vsphere_folder.folder]
 
   num_cpus  = "${var.loadbalancer_vm_cpu}"
   memory    = "${var.loadbalancer_vm_memory_mb}"
