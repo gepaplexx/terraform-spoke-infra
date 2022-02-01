@@ -18,7 +18,7 @@ resource vsphere_virtual_machine "loadbalancer" {
     network_id   = "${data.vsphere_network.network.id}"
     adapter_type = "${data.vsphere_virtual_machine.template.network_interface_types[0]}"
     use_static_mac = "true"
-    mac_address = "${var.spoke_mac_prefix}:${format("%02X", (count.index + 3))}"
+    mac_address = "${var.spoke_mac_prefix}:${format("%02X", (count.index + 4))}"
   }
   wait_for_guest_net_timeout = 0
 
