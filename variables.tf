@@ -68,3 +68,12 @@ variable "loadbalancer_vm_memory_mb" {
   type = number
   description = "Specify the ram in MB for service vms."
 }
+
+variable "loadbalancer_vm_count" {
+  type = number
+  validation {
+    condition     = can(regex("1|2", var.loadbalancer_vm_count))
+    error_message = "Valid values for var: loadbalancer_vm_count are (1 or 2)."
+  }
+  description = "Specify the number of infrastructure vms (valid values are 1,2)."
+}

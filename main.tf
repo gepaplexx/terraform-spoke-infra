@@ -1,5 +1,6 @@
-resource vsphere_virtual_machine "loadbalancer0" {
-  name             = "loadbalancer0.${var.spoke_network_name}"
+resource vsphere_virtual_machine "loadbalancer" {
+  count           = var.loadbalancer_vm_count
+  name             = "loadbalancer${count.index}.${var.spoke_network_name}"
   resource_pool_id = "${data.vsphere_compute_cluster.cc.resource_pool_id}"
   datastore_id     = "${data.vsphere_datastore.ds.id}"
   folder           = "GP/${var.spoke_network_name}"
@@ -17,7 +18,7 @@ resource vsphere_virtual_machine "loadbalancer0" {
     network_id   = "${data.vsphere_network.network.id}"
     adapter_type = "${data.vsphere_virtual_machine.template.network_interface_types[0]}"
     use_static_mac = "true"
-    mac_address = "${var.spoke_mac_prefix}:03"
+    mac_address = "${var.spoke_mac_prefix}:${format("%02X", (count.index + 3))}"
   }
   wait_for_guest_net_timeout = 0
 
@@ -34,7 +35,7 @@ resource vsphere_virtual_machine "loadbalancer0" {
 
   vapp {
     properties ={
-      hostname = "loadbalancer0"
+      hostname = "loadbalancer${count.index}"
       user-data = base64encode(templatefile("${path.module}/cloudinit/cloud-config.yaml.tpl", {
         authorized_key = "${var.authorized_key}"
       }))
