@@ -71,7 +71,7 @@ variable "loadbalancer_vm_memory_mb" {
 
 variable "loadbalancer_vm_count" {
   type = number
-  default = 1
+  default = 2
   validation {
     condition     = can(regex("1|2", var.loadbalancer_vm_count))
     error_message = "Valid values for var: loadbalancer_vm_count are (1 or 2)."
